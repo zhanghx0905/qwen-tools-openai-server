@@ -244,20 +244,20 @@ async def proxy_completions(request: ChatCompletionRequest):
             ret = response.model_dump(exclude_none=True)
 
             # 处理返回的响应
-            choice = ret["choices"][0]
-            text = choice["message"]["content"]
-            content, func, args = eval_qwen_tools_arguments(text, tool_names)
-            if func and args:
-                _id = str(uuid.uuid4())
+            if tools:
+                content, func, args = eval_qwen_tools_arguments(text, tool_names)
                 choice["message"]["content"] = content
-                choice["message"]["tool_calls"] = [
-                    {
-                        "id": _id,
-                        "function": {"name": func, "arguments": args},
-                        "type": "function",
-                    }
-                ]
-                choice["finish_reason"] = "tool_calls"
+                if func and args:
+                    _id = str(uuid.uuid4())
+                    
+                    choice["message"]["tool_calls"] = [
+                        {
+                            "id": _id,
+                            "function": {"name": func, "arguments": args},
+                            "type": "function",
+                        }
+                    ]
+                    choice["finish_reason"] = "tool_calls"
             return JSONResponse(ret)
 
     except Exception as e:
