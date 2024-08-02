@@ -1,11 +1,11 @@
 
-# Qwen OpenAI API Server with ReAct Tools
+# Qwen OpenAI API Tools Middleware
 
 ## Introduction
 
 This is an OpenAI API-compatible server based on the Qwen model, implementing tool calling functionality using the ReAct strategy. Qwen, a large language model developed by Alibaba Cloud, is equipped with the capability to call tools. However, common inference engines such as vLLM and sglang do not support tools APIs.
 
-The purpose of this project is to provide an interface that is compatible with the OpenAI API, enabling developers to easily integrate Qwen's tool calling capabilities into their applications.
+The purpose of this project is to provide a middleware enabling developers to easily integrate Qwen's tool calling capabilities into their applications.
 
 ## Installation
 
@@ -79,7 +79,7 @@ curl -X 'POST' \
 
 Qwen是阿里云开发的大型语言模型，具备工具调用能力。但是常见的推理引擎，如 vLLM，sglang 均不支持 tools API。
 
-本项目旨在提供一个兼容OpenAI API的接口，使得开发者可以轻松地集成Qwen的工具调用能力。
+本项目旨在使得开发者可以轻松地集成Qwen的工具调用能力。
 
 ## 安装
 
