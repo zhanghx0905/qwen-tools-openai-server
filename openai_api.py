@@ -244,7 +244,10 @@ async def proxy_completions(request: ChatCompletionRequest):
             ret = response.model_dump(exclude_none=True)
 
             # 处理返回的响应
+
             if tools:
+                choice = ret["choices"][0]
+                text = choice["message"]["content"]
                 content, func, args = eval_qwen_tools_arguments(text, tool_names)
                 choice["message"]["content"] = content
                 if func and args:
