@@ -1,0 +1,7 @@
+openai
+orjson
+fastapi
+pydantic
+loguru
+uvicorn
+pydotenv
