@@ -152,7 +152,7 @@ def eval_qwen_tools_arguments(text: str, tool_names: set[str]):
     return text, None, None
 
 
-def tokens_filter():
+def get_tokens_filter():
     found = False
 
     def process_tokens(tokens: str, delta: str):
@@ -192,14 +192,15 @@ async def proxy_completions(request: ChatCompletionRequest):
 
             async def stream_generator():
                 previous_text: str = ""
-                tools_token_filter = tokens_filter()
+                tools_token_filter = get_tokens_filter()
                 async for i in response_stream:
                     chunk = i.model_dump(exclude_none=True)
-                    choice = chunk["choices"][0]
-                    delta = choice["delta"]
-                    delta_content = delta.get("content", "")
-                    previous_text += delta_content
+
                     if tools:
+                        choice = chunk["choices"][0]
+                        delta = choice["delta"]
+                        delta_content = delta.get("content", "")
+                        previous_text += delta_content
                         if (
                             previous_text.endswith("Observation:")
                             or choice.get("finish_reason") is not None
