@@ -4,4 +4,4 @@ fastapi
 pydantic
 loguru
 uvicorn
-pydotenv
+python-dotenv
